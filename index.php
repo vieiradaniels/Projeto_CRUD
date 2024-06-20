@@ -1,3 +1,25 @@
+<?php
+session_start();
+include_once './config/config.php';
+include_once './classes/usuario.php';
+$usuario = new Usuario($db);
+if ($_SERVER['REQUEST_METHOD']==='POST'){
+    if(isset($_POST['login'])){
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+        if ($dados_Usuario = $usuario->login(
+            $email, $senha
+        )){
+            $_SESSION['usuario_id'] = $dados_Usuario['id'];
+            header('Location: portal.php');
+            exit();
+        }else{
+            $mensagem_erro = "Credenciais inválidas!";
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
