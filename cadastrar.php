@@ -9,11 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $senha = $_POST['senha'];
     $usuario->registrar($nome, $sexo, $fone, $email, $senha);
-    if(!isset($_SESSION['usuario_id'])){
-        header('Location: ./portal.php');
-    }else{
-        header('Location: ./index.php');
-    }
+    header('Location: index.php');
+    exit();
 }
 ?>;
 
