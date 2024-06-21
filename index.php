@@ -4,13 +4,13 @@ include_once './config/config.php';
 include_once './classes/usuario.php';
 $usuario = new Usuario($db);
 if ($_SERVER['REQUEST_METHOD']==='POST'){
-    if(isset($_POST['login'])){
+    if(isset($_POST['email'])){
     $email = $_POST['email'];
     $senha = $_POST['senha'];
-        if ($dados_Usuario = $usuario->login(
+        if ($dados_usuario = $usuario->login(
             $email, $senha
         )){
-            $_SESSION['usuario_id'] = $dados_Usuario['id'];
+            $_SESSION['usuario_id'] = $dados_usuario['id'];
             header('Location: portal.php');
             exit();
         }else{
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
     <main>
         <section id="login">
             <h1>Login</h1>
-            <form action="login.php" method="post">
+            <form method="post">
                 <div class="form-group">
                     <label for="email">E-mail:</label>
                     <input type="email" id="email" name="email" required>
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
                 </div>
             </form>
             <div class="register-link">
-                <p>Não tem uma conta? <a href="cadastro.php">Registre-se aqui</a></p>
+                <p>Não tem uma conta? <a href="cadastrar.php">Registre-se aqui</a></p>
             </div>
         </section>
     </main>
