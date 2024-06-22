@@ -26,21 +26,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Cadastro Usuário</h1>
-    <form method="POST">
-        <input type="text" name="nome" placeholder="nome" required>
-        <br><label>Masculino</label>
-        <input type="radio" name="sexo" value="M" required>
-        <br><label>Feminino</label>
-        <input type="radio" name="sexo" value="F" required>
-        <br>
-        <input type="text" name="fone" placeholder="Telefone" required>
-        <br>
-        <input type="email" name="email" placeholder="E-mail" required>
-        <br>
-        <input type="password" name="senha" placeholder="Senha" required>
-        <br>
-        <input type="submit" value="Cadastrar">
-    </form>
+<main>
+        <section id="register">
+            <h1>Cadastro Usuário</h1>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" placeholder="Nome" required>
+                </div>
+                <div class="form-group">
+                    <label>Sexo:</label>
+                    <label for="masculino">
+                        <input type="radio" id="masculino" name="sexo" value="M" required> Masculino
+                    </label>
+                    <label for="feminino">
+                        <input type="radio" id="feminino" name="sexo" value="F" required> Feminino
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="fone">Telefone:</label>
+                    <input type="text" id="fone" name="fone" placeholder="Telefone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" placeholder="E-mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha" placeholder="Senha" required>
+                </div>
+                <div class="button-group">
+                    <button type="submit">Cadastrar</button>
+                </div>
+            </form>
+        </section>
+    </main>
 </body>
 </html>
