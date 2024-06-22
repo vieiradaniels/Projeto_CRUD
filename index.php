@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
                 </div>
             </form>
             <div class="register-link">
-                <p>Não tem uma conta? <a href="cadastrar.php">Registre-se aqui</a></p>
+                <p>Não tem uma conta? <a href="registrar.php">Registre-se aqui</a></p>
             </div>
         </section>
     </main>

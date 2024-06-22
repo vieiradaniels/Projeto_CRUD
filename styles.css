@@ -1,75 +1,221 @@
-
+/* Global Styles */
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #3b5998, #8b9dc3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+    background: linear-gradient(to right, #141E30, #243B55);
     color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-main {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    color: #333;
-    width: 300px;
+header.navbar {
+    background-color: #007bff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Added to handle wrapping on smaller screens */
 }
 
-#login h1 {
+header h1 {
+    margin: 0;
+    flex: 1;
     text-align: center;
-    color: #3b5998;
 }
 
-.form-group {
+.hamburger {
+    display: none;
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.nav-links {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-links .button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.nav-links .button:hover {
+    background-color: #218838;
+}
+
+/* Main Styles for Login and Register */
+main {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+main h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+main .form-group {
     margin-bottom: 15px;
 }
 
-.form-group label {
+main .form-group label {
     display: block;
     margin-bottom: 5px;
 }
 
-.form-group input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+main .form-group input[type="text"],
+main .form-group input[type="email"],
+main .form-group input[type="password"] {
+    width: calc(100% - 3px); /* Reduzir a largura para acomodar o padding */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #444;
+    color: #fff;
+    margin-bottom: 10px; /* Adicionar margem inferior para espaçamento entre os inputs */
+    box-sizing: border-box; /* Garantir que o padding não aumente o tamanho total do input */
 }
 
-.button-group {
+/* Adjusting radio buttons */
+main .form-group label input[type="radio"] {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+main .form-group label.radio-label {
+    display: inline-block;
+    margin-right: 20px;
+    vertical-align: middle;
+}
+
+main .button-group {
     text-align: center;
-    margin-top: 20px;
 }
 
-.button-group button {
-    background-color: #3b5998;
+main .button-group button {
+    background-color: #007bff;
     color: #fff;
     border: none;
     padding: 10px 20px;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
 }
 
-.button-group button:hover {
-    background-color: #334d84;
+main .button-group button:hover {
+    background-color: #0056b3;
 }
 
-.register-link {
+main .register-link {
     text-align: center;
     margin-top: 10px;
 }
 
-.register-link a {
-    color: #3b5998;
+main .register-link a {
+    color: #007bff;
     text-decoration: none;
 }
 
-.register-link a:hover {
+main .register-link a:hover {
     text-decoration: underline;
+}
+
+/* Main Styles for Portal */
+.portal-main {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #444;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.user-table th, .user-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+    background-color: #555;
+}
+
+.user-table th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.user-table tbody tr:nth-child(even) {
+    background-color: #666;
+}
+
+.action-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+}
+
+.action-button.delete {
+    background-color: #dc3545;
+}
+
+.action-button.delete:hover {
+    background-color: #c82333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #007bff;
+    }
+
+    .nav-links .button {
+        width: 100%;
+        margin: 0;
+        text-align: center;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    header.navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .portal-main, main {
+        width: 90%;
+    }
 }
