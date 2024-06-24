@@ -39,15 +39,13 @@ function saudacao()
 
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="dist/hamburgers.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dist/hamburgers.css">
 </head>
-
 <body>
     <header class="navbar">
         <h1><?php echo saudacao() . ", " . $nome_usuario; ?>!</h1>
@@ -62,40 +60,47 @@ function saudacao()
         </nav>
     </header>
     <main class="portal-main">
-        <table class="user-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Sexo</th>
-                    <th>Telefone</th>
-                    <th>Email</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = $dados->fetch(PDO::FETCH_ASSOC)): ?>
+        <div class="table-responsive">
+            <table class="user-table">
+                <thead>
                     <tr>
-                        <td><?php echo $row['id']; ?></td>
-                        <td><?php echo $row['nome']; ?></td>
-                        <td><?php echo ($row['sexo'] === 'M') ? 'Masculino' : 'Feminino'; ?></td>
-                        <td><?php echo $row['fone']; ?></td>
-                        <td><?php echo $row['email']; ?></td>
-                        <td>
-                            <a href="editar.php?id=<?php echo $row['id']; ?>" class="action-button">Editar</a>
-                            <a href="deletar.php?id=<?php echo $row['id']; ?>" class="action-button delete">Deletar</a>
-                        </td>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Sexo</th>
+                        <th>Telefone</th>
+                        <th>Email</th>
+                        <th>Ações</th>
                     </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php while ($row = $dados->fetch(PDO::FETCH_ASSOC)): ?>
+                        <tr>
+                            <td><?php echo $row['id']; ?></td>
+                            <td><?php echo $row['nome']; ?></td>
+                            <td><?php echo ($row['sexo'] === 'M') ? 'Masculino' : 'Feminino'; ?></td>
+                            <td><?php echo $row['fone']; ?></td>
+                            <td><?php echo $row['email']; ?></td>
+                            <td>
+                                <a href="editar.php?id=<?php echo $row['id']; ?>" class="action-button">Editar</a>
+                                <a href="deletar.php?id=<?php echo $row['id']; ?>" class="action-button delete">Deletar</a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
     </main>
     <script>
-        document.querySelector('.hamburger').addEventListener('click', function() {
-        document.querySelector('.nav-links').classList.toggle('active');
-        this.classList.toggle('is-active');
-    });
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('is-active');
+                navLinks.classList.toggle('active');
+            });
+        });
     </script>
 </body>
-
 </html>
+

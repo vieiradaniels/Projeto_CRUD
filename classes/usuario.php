@@ -55,4 +55,57 @@ class Usuario
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    // Gera um código de verificação e o salva no banco de dados
+public function gerarCodigoVerificacao($email)
+{
+    // Gera um código de verificação aleatório de 10 caracteres
+    $codigo = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyz"), 0, 10);
+    
+    // Define a consulta SQL para atualizar o código de verificação para o email fornecido
+    $query = "UPDATE " . $this->table_name . " SET codigo_verificacao = ? WHERE email = ?";
+    
+    // Prepara a consulta
+    $stmt = $this->conn->prepare($query);
+    
+    // Executa a consulta com os parâmetros fornecidos
+    $stmt->execute([$codigo, $email]);
+    
+    // Retorna o código gerado se a atualização foi bem-sucedida, caso contrário, retorna false
+    return ($stmt->rowCount() > 0) ? $codigo : false;
+}
+
+// Verifica se o código de verificação é válido
+public function verificarCodigo($codigo) {
+    // Define a consulta SQL para selecionar a entrada com o código de verificação fornecido
+    $query = "SELECT * FROM " . $this->table_name . " WHERE codigo_verificacao = ?";
+    
+    // Prepara a consulta
+    $stmt = $this->conn->prepare($query);
+    
+    // Executa a consulta com o parâmetro fornecido
+    $stmt->execute([$codigo]);
+    
+    // Retorna a linha correspondente como um array associativo, ou false se não encontrado
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+// Redefine a senha do usuário e remove o código de verificação
+public function redefinirSenha($codigo, $senha) {
+    // Define a consulta SQL para atualizar a senha e remover o código de verificação
+    $query = "UPDATE " . $this->table_name . " SET senha = ?, codigo_verificacao = NULL WHERE codigo_verificacao = ?";
+    
+    // Prepara a consulta
+    $stmt = $this->conn->prepare($query);
+    
+    // Hash a nova senha usando bcrypt
+    $hashed_password = password_hash($senha, PASSWORD_BCRYPT);
+    
+    // Executa a consulta com a senha hash e o código de verificação fornecidos
+    $stmt->execute([$hashed_password, $codigo]);
+    
+    // Retorna true se alguma linha foi afetada, indicando que a senha foi redefinida
+    return $stmt->rowCount() > 0;
+}
+
 }

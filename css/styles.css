@@ -16,7 +16,7 @@ header.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* Added to handle wrapping on smaller screens */
+    flex-wrap: wrap;
 }
 
 header h1 {
@@ -53,9 +53,9 @@ header h1 {
     background-color: #218838;
 }
 
-/* Main Styles for Login and Register */
+/* Main Styles para Login, Registrar e senha*/
 main {
-    max-width: 400px;
+    max-width: 600px;
     margin: 20px auto;
     padding: 20px;
     background-color: #333;
@@ -90,7 +90,7 @@ main .form-group input[type="password"] {
     box-sizing: border-box; /* Garantir que o padding não aumente o tamanho total do input */
 }
 
-/* Adjusting radio buttons */
+/* Ajuste radio buttons */
 main .form-group label input[type="radio"] {
     margin-right: 10px;
     vertical-align: middle;
@@ -133,7 +133,7 @@ main .register-link a:hover {
     text-decoration: underline;
 }
 
-/* Main Styles for Portal */
+/* Estilo main para o Portal */
 .portal-main {
     max-width: 1000px;
     margin: 20px auto;
@@ -147,6 +147,7 @@ main .register-link a:hover {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    overflow-x: auto; /* Adicionado para tornar a tabela responsiva */
 }
 
 .user-table th, .user-table td {
@@ -154,6 +155,7 @@ main .register-link a:hover {
     padding: 10px;
     text-align: left;
     background-color: #555;
+    white-space: nowrap; /* Adicionado para tornar a tabela responsiva */
 }
 
 .user-table th {
@@ -187,7 +189,75 @@ main .register-link a:hover {
     background-color: #c82333;
 }
 
-/* Responsive Design */
+/* Formulário de edição de usuário */
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-container input[type="text"],
+.form-container input[type="tel"],
+.form-container input[type="email"],
+.form-container input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.form-container input[type="text"]:focus,
+.form-container input[type="tel"]:focus,
+.form-container input[type="email"]:focus,
+.form-container input[type="password"]:focus {
+    border-color: #3498db;
+}
+
+.form-container .radio-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.form-container input[type="radio"] {
+    margin-right: 5px;
+}
+
+.form-container input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #5cb85c;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #4cae4c;
+}
+
+/* Responsive Styles */
 @media (max-width: 768px) {
     .hamburger {
         display: block;
@@ -217,5 +287,32 @@ main .register-link a:hover {
 
     .portal-main, main {
         width: 90%;
+    }
+
+    .user-table th, .user-table td {
+        white-space: normal; /* Permitir que o texto seja quebrado em várias linhas */
+    }
+
+    .user-table th, .user-table td {
+        padding: 5px; /* Reduzir o padding para economizar espaço */
+    }
+
+    .user-table th {
+        font-size: 14px; /* Reduzir o tamanho da fonte */
+    }
+
+    .user-table td {
+        font-size: 12px; /* Reduzir o tamanho da fonte */
+    }
+
+    .action-button {
+        padding: 3px 8px; /* Reduzir o padding dos botões */
+        font-size: 12px; /* Reduzir o tamanho da fonte dos botões */
+        margin-right: 8px; /* Aumentar a margem entre os botões */
+    }
+
+    .user-table .action-button {
+        display: inline-block; /* Manter os botões na mesma linha */
+        margin-bottom: 5px; /* Adicionar um espaço abaixo de cada linha */
     }
 }
