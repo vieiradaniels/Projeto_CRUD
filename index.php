@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
                 </div>
             </form>
             <div class="register-link">
+                <p>Esqueceu sua senha? <a href="solicitar_recuperacao.php">Redefinir aqui</a></p>
                 <p>Não tem uma conta? <a href="registrar.php">Registre-se aqui</a></p>
             </div>
         </section>

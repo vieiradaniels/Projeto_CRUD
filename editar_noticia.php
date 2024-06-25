@@ -57,20 +57,28 @@ if (isset($_GET['id'])) {
         </button>
         <nav class="nav-links">
             <a href="gerenciar.php" class="button">Gerenciar Usuários</a>
-            <a href="portal.php" class="button">Gerenciar Notícias</a>
+            <a href="portal.php" class="button">Voltar</a>
         </nav>
     </header>
 
     <main>
         <!-- Formulário para atualizar a notícia -->
         <form method="post" action="editar_noticia.php">
-            <input type="hidden" name="id" value="<?php echo $noticia_atual['idnot']; ?>">
-            <input type="text" name="titulo" placeholder="Título" value="<?php echo $noticia_atual['titulo']; ?>"
-                required>
-            <textarea name="conteudo" rows="4" placeholder="Conteúdo"
-                required><?php echo $noticia_atual['noticia']; ?></textarea>
-            <button type="submit" name="atualizar">Atualizar</button>
-        </form>
+    <input type="hidden" name="id" value="<?php echo $noticia_atual['idnot']; ?>">
+    
+    <div class="form-group">
+        <input type="text" name="titulo" placeholder="Título" value="<?php echo $noticia_atual['titulo']; ?>" required>
+    </div>
+    
+    <div class="form-group">
+        <textarea name="conteudo" rows="6" placeholder="Conteúdo" required><?php echo $noticia_atual['noticia']; ?></textarea>
+    </div>
+    
+    <div class="button-group">
+        <button type="submit" name="atualizar">Atualizar</button>
+    </div>
+</form>
+
     </main>
     <script>
         document.addEventListener('DOMContentLoaded', function () {

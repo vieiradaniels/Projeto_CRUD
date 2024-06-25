@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="POST">
         <div class="form-group">
             <label for="codigo">Código de Verificação:</label>
-            <input type="text" name="codigo" value="Seu código aqui" required>
+            <input type="text" name="codigo" placeholder="Seu código aqui" required>
         </div>
         <div class="form-group">
             <label for="nova_senha">Nova Senha:</label>
