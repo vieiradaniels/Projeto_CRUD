@@ -7,7 +7,7 @@
  */
 .hamburger {
   padding: 15px 15px;
-  display: inline-block;
+  display: none;
   cursor: pointer;
   transition-property: opacity, filter;
   transition-duration: 0.15s;
@@ -704,3 +704,63 @@
   .hamburger--vortex-r.is-active .hamburger-inner::after {
     bottom: 0;
     transform: rotate(-90deg); }
+
+    @media (max-width: 768px) {
+      .hamburger {
+          display: block;
+      }
+  
+      .nav-links {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          background-color: #007bff;
+      }
+  
+      .nav-links .button {
+          width: 100%;
+          margin: 0;
+          text-align: center;
+      }
+  
+      .nav-links.active {
+          display: flex;
+      }
+  
+      header.navbar {
+          flex-direction: column;
+          text-align: center;
+      }
+  
+      .portal-main, main {
+          width: 90%;
+      }
+  
+      .user-table th, .user-table td {
+          white-space: normal; /* Permitir que o texto seja quebrado em várias linhas */
+      }
+  
+      .user-table th, .user-table td {
+          padding: 5px; /* Reduzir o padding para economizar espaço */
+      }
+  
+      .user-table th {
+          font-size: 14px; /* Reduzir o tamanho da fonte */
+      }
+  
+      .user-table td {
+          font-size: 12px; /* Reduzir o tamanho da fonte */
+      }
+  
+      .action-button {
+          padding: 3px 8px; /* Reduzir o padding dos botões */
+          font-size: 12px; /* Reduzir o tamanho da fonte dos botões */
+          margin-right: 8px; /* Aumentar a margem entre os botões */
+      }
+  
+      .user-table .action-button {
+          display: inline-block; /* Manter os botões na mesma linha */
+          margin-bottom: 5px; /* Adicionar um espaço abaixo de cada linha */
+      }
+    
+  }

@@ -23,21 +23,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1>Cadastro Usuário</h1>
-    <form method="POST">
-        <input type="text" name="nome" placeholder="nome" required>
-        <br><label>Masculino</label>
-        <input type="radio" name="sexo" value="M" required>
-        <br><label>Feminino</label>
-        <input type="radio" name="sexo" value="F" required>
-        <br>
-        <input type="text" name="fone" placeholder="Telefone" required>
-        <br>
-        <input type="email" name="email" placeholder="E-mail" required>
-        <br>
-        <input type="password" name="senha" placeholder="Senha" required>
-        <br>
-        <input type="submit" value="Cadastrar">
-    </form>
+    <main class="form-container">
+        <h1>Cadastro Usuário</h1>
+        <form method="POST">
+            <div class="form-group">
+                <input type="text" name="nome" placeholder="Nome" required>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="radio" name="sexo" value="M" required>
+                    Masculino
+                </label>
+                <label>
+                    <input type="radio" name="sexo" value="F" required>
+                    Feminino
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="text" name="fone" placeholder="Telefone" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="E-mail" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="senha" placeholder="Senha" required>
+            </div>
+            <div class="button-group">
+                <input type="submit" value="Cadastrar">
+            </div>
+        </form>
+    </main>
 </body>
 </html>

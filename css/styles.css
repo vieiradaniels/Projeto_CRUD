@@ -10,13 +10,13 @@ body {
     min-height: 100vh;
 }
 
+/* Header Styles */
 header.navbar {
     background-color: #007bff;
     padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
 header h1 {
@@ -53,8 +53,9 @@ header h1 {
     background-color: #218838;
 }
 
+/* Main Styles for Forms and Content */
 main {
-    max-width: 600px;
+    max-width: 900px;
     margin: 20px auto;
     padding: 20px;
     background-color: #333;
@@ -78,7 +79,8 @@ main .form-group label {
 
 main .form-group input[type="text"],
 main .form-group input[type="email"],
-main .form-group input[type="password"] {
+main .form-group input[type="password"],
+main .form-group textarea {
     width: calc(100% - 3px); /* Reduzir a largura para acomodar o padding */
     padding: 10px;
     border: none;
@@ -87,6 +89,23 @@ main .form-group input[type="password"] {
     color: #fff;
     margin-bottom: 10px; /* Adicionar margem inferior para espaçamento entre os inputs */
     box-sizing: border-box; /* Garantir que o padding não aumente o tamanho total do input */
+    height: 40px;
+}
+
+main .form-group textarea {
+    resize: vertical;
+}
+
+main .form-group input[type="text"],
+main .form-group textarea {
+    width: 100%;
+    padding: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #444;
+    color: #fff;
+    margin-bottom: 15px;
+    box-sizing: border-box;
 }
 
 /* Ajuste radio buttons */
@@ -132,9 +151,19 @@ main .register-link a:hover {
     text-decoration: underline;
 }
 
-/* Estilo main para o Portal */
+/* Radio Buttons */
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
 
-.portal-main {
+.form-group input[type="radio"] {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Estilo main para o Portal */
+.gerenciar-main {
     max-width: 1000px;
     margin: 20px auto;
     padding: 20px;
@@ -189,15 +218,16 @@ main .register-link a:hover {
     background-color: #c82333;
 }
 
-
 /* Formulário de edição de usuário */
 .form-container {
     max-width: 600px;
+    width: 100%; /* Para garantir que ocupe toda a largura disponível */
     margin: 50px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
 .form-container h1 {
@@ -216,7 +246,8 @@ main .register-link a:hover {
 .form-container input[type="text"],
 .form-container input[type="tel"],
 .form-container input[type="email"],
-.form-container input[type="password"] {
+.form-container input[type="password"],
+.form-container textarea {
     width: calc(100% - 20px);
     padding: 10px;
     margin-bottom: 10px;
@@ -225,10 +256,15 @@ main .register-link a:hover {
     transition: border-color 0.3s;
 }
 
+.form-container textarea {
+    resize: vertical;
+}
+
 .form-container input[type="text"]:focus,
 .form-container input[type="tel"]:focus,
 .form-container input[type="email"]:focus,
-.form-container input[type="password"]:focus {
+.form-container input[type="password"]:focus,
+.form-container textarea:focus {
     border-color: #3498db;
 }
 
@@ -258,8 +294,72 @@ main .register-link a:hover {
     background-color: #4cae4c;
 }
 
-/* Responsive Styles */
+/* Lista de Notícias */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
 
+ul li {
+    background-color: #444;
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+ul li h2 {
+    margin: 0 0 10px;
+    color: #fff;
+}
+
+ul li p {
+    margin: 0 0 10px;
+    color: #ddd;
+}
+
+ul li a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}
+
+ul li .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+ul li .actions a {
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+ul li .actions a.edit {
+    background-color: #28a745;
+    color: #fff;
+}
+
+ul li .actions a.edit:hover {
+    background-color: #218838;
+}
+
+ul li .actions a.delete {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+ul li .actions a.delete:hover {
+    background-color: #c82333;
+}
+
+/* Estilos Responsivos */
 @media (max-width: 768px) {
     .hamburger {
         display: block;
@@ -317,5 +417,4 @@ main .register-link a:hover {
         display: inline-block; /* Manter os botões na mesma linha */
         margin-bottom: 5px; /* Adicionar um espaço abaixo de cada linha */
     }
-  
 }

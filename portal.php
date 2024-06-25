@@ -1,40 +1,41 @@
 <?php
-
 session_start();
 include_once './config/config.php';
-include_once './classes/usuario.php';
+include_once './classes/noticias.php';
 
-//verificar se o usuário está logado
+// Verificar se o usuário está logado (exemplo)
 if (!isset($_SESSION['usuario_id'])) {
     header('Location: index.php');
     exit;
 }
-$usuario = new Usuario($db);
 
-//Processar exclusão de usuário
-if (isset($_GET['deletar'])) {
-    $id_usuario = $_GET['deletar'];
-    $usuario->deletar($id);
-    header('Location: portal.php');
+$noticia = new Noticia($db);
+
+// Ações
+if (isset($_POST['criar'])) {
+    $idusu = $_SESSION['usuario_id']; // ID do usuário logado
+    $data = date('Y-m-d'); // Data atual
+    $titulo = $_POST['titulo'];
+    $conteudo = $_POST['conteudo'];
+    $noticia->criar($idusu, $data, $titulo, $conteudo);
+    header('Location: noticias.php');
+    exit;
+} elseif (isset($_POST['atualizar'])) {
+    $idnot = $_POST['id'];
+    $titulo = $_POST['titulo'];
+    $conteudo = $_POST['conteudo'];
+    $noticia->atualizar($idnot, $titulo, $conteudo);
+    header('Location: noticias.php');
+    exit;
+} elseif (isset($_GET['deletar'])) {
+    $idnot = $_GET['deletar'];
+    $noticia->deletar($idnot);
+    header('Location: noticias.php');
     exit;
 }
-//Obter dados do usuário logado
-$dados_usuario = $usuario->lerPorId($_SESSION['usuario_id']);
-$nome_usuario = $dados_usuario['nome'];
-//Obter dados dos usuários
-$dados = $usuario->ler();
-//Função para determinar a saudação
-function saudacao()
-{
-    $hora = date('H');
-    if ($hora >= 6 && $hora < 12) {
-        return 'Bom dia';
-    } elseif ($hora >= 12 && $hora < 18) {
-        return 'Boa tarde';
-    } else {
-        return 'Boa noite';
-    }
-}
+
+// Ler todas as notícias
+$noticias = $noticia->ler();
 ?>
 
 <!DOCTYPE html>
@@ -42,65 +43,70 @@ function saudacao()
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal</title>
+    <title>Notícias</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/dist/hamburgers.css">
 </head>
 <body>
-    <header class="navbar">
-        <h1><?php echo saudacao() . ", " . $nome_usuario; ?>!</h1>
-        <button class="hamburger hamburger--collapse" type="button">
-            <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
-            </span>
-        </button>
-        <nav class="nav-links">
-            <a href="registrar.php" class="button">Adicionar Usuário</a>
-            <a href="logout.php" class="button">Logout</a>
-        </nav>
-    </header>
-    <main class="portal-main">
-        <div class="table-responsive">
-            <table class="user-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Sexo</th>
-                        <th>Telefone</th>
-                        <th>Email</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($row = $dados->fetch(PDO::FETCH_ASSOC)): ?>
-                        <tr>
-                            <td><?php echo $row['id']; ?></td>
-                            <td><?php echo $row['nome']; ?></td>
-                            <td><?php echo ($row['sexo'] === 'M') ? 'Masculino' : 'Feminino'; ?></td>
-                            <td><?php echo $row['fone']; ?></td>
-                            <td><?php echo $row['email']; ?></td>
-                            <td>
-                                <a href="editar.php?id=<?php echo $row['id']; ?>" class="action-button">Editar</a>
-                                <a href="deletar.php?id=<?php echo $row['id']; ?>" class="action-button delete">Deletar</a>
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            </table>
-        </div>
-    </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const hamburger = document.querySelector('.hamburger');
-            const navLinks = document.querySelector('.nav-links');
+<header class="navbar">
+    <h1>Notícias</h1>
+    <button class="hamburger hamburger--collapse" type="button">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+    <nav class="nav-links">
+        <a href="gerenciar.php" class="button">Gerenciar Usuário</a>
+        <a href="logout.php" class="button">Sair</a>
+    </nav>
+</header>
 
-            hamburger.addEventListener('click', function() {
-                hamburger.classList.toggle('is-active');
-                navLinks.classList.toggle('active');
-            });
+<main>
+    <!-- Formulário para criar ou atualizar notícias -->
+    <form action="noticias.php" method="post">
+        <input type="hidden" name="id" value="<?php echo isset($noticia_atual) ? $noticia_atual['idnot'] : ''; ?>">
+        
+        <div class="form-group">
+            <input type="text" name="titulo" placeholder="Título" value="<?php echo isset($noticia_atual) ? $noticia_atual['titulo'] : ''; ?>" required>
+        </div>
+        
+        <div class="form-group">
+            <textarea name="conteudo" rows="6" placeholder="Conteúdo" required><?php echo isset($noticia_atual) ? $noticia_atual['noticia'] : ''; ?></textarea>
+        </div>
+        
+        <div class="button-group">
+            <?php if (isset($noticia_atual)): ?>
+                <button type="submit" name="atualizar">Atualizar</button>
+            <?php else: ?>
+                <button type="submit" name="criar">Criar Notícia</button>
+            <?php endif; ?>
+        </div>
+    </form>
+
+    <!-- Lista de notícias existentes -->
+    <ul>
+        <?php while ($row = $noticias->fetch(PDO::FETCH_ASSOC)): ?>
+            <li>
+                <h2><?php echo $row['titulo']; ?></h2>
+                <p><?php echo $row['noticia']; ?></p>
+                <div class="actions">
+                    <a class="edit" href="editar_noticia.php?id=<?php echo $row['idnot']; ?>">Editar</a>
+                    <a class="delete" href="noticias.php?deletar=<?php echo $row['idnot']; ?>" onclick="return confirm('Tem certeza que deseja deletar esta notícia?')">Deletar</a>
+                </div>
+            </li>
+        <?php endwhile; ?>
+    </ul>
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('is-active');
+            navLinks.classList.toggle('active');
         });
-    </script>
+    });
+</script>
 </body>
 </html>
-
