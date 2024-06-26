@@ -12,7 +12,7 @@ include_once './classes/noticias.php';
 $noticia = new Noticia($db);
 if (isset($_GET['id'])){
     $id = $_GET['id'];
-    $usuario->deletar($id);
+    $noticia->deletar($id);
     header('Location: portal.php');
     exit();
 }
