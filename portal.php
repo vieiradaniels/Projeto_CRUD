@@ -3,6 +3,17 @@ session_start();
 include_once './config/config.php';
 include_once './classes/noticias.php';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $noticia = new Noticia($db);
+    $idusu = $_SESSION['usuario_id']; // ID do usuário logado
+    $data = date('Y-m-d'); // Data atual
+    $titulo = $_POST['titulo'];
+    $conteudo = $_POST['conteudo'];
+    $noticia->criar($idusu, $data, $titulo, $conteudo);
+    header('Location: portal.php');
+    exit;
+}
+
 // Verificar se o usuário está logado (exemplo)
 if (!isset($_SESSION['usuario_id'])) {
     header('Location: index.php');
@@ -63,7 +74,7 @@ $noticias = $noticia->ler();
 
 <main>
     <!-- Formulário para criar ou atualizar notícias -->
-    <form action="noticias.php" method="post">
+    <form method="post">
         <input type="hidden" name="id" value="<?php echo isset($noticia_atual) ? $noticia_atual['idnot'] : ''; ?>">
         
         <div class="form-group">
@@ -91,7 +102,7 @@ $noticias = $noticia->ler();
                 <p><?php echo $row['noticia']; ?></p>
                 <div class="actions">
                     <a class="edit" href="editar_noticia.php?id=<?php echo $row['idnot']; ?>">Editar</a>
-                    <a class="delete" href="noticias.php?deletar=<?php echo $row['idnot']; ?>" onclick="return confirm('Tem certeza que deseja deletar esta notícia?')">Deletar</a>
+                    <a class="delete" href="deletar_noticia.php?id=<?php echo $row['idnot']; ?>" onclick="return confirm('Tem certeza que deseja deletar esta notícia?')">Deletar</a>
                 </div>
             </li>
         <?php endwhile; ?>
