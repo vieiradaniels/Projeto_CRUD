@@ -1,58 +1,46 @@
 <?php
-session_start();
 include_once './config/config.php';
-include_once './classes/usuario.php';
-$usuario = new Usuario($db);
-if ($_SERVER['REQUEST_METHOD']==='POST'){
-    if(isset($_POST['email'])){
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
-        if ($dados_usuario = $usuario->login(
-            $email, $senha
-        )){
-            $_SESSION['usuario_id'] = $dados_usuario['id'];
-            header('Location: portal.php');
-            exit();
-        }else{
-            $mensagem_erro = "Credenciais inválidas!";
-        }
-    }
-}
+include_once './classes/noticias.php';
+
+$noticia = new Noticia($db);
+$noticias = $noticia->ler();
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Notícias</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
+<header class="navbar">
+    <h1>Notícias Recentes</h1>
+    <button class="hamburger hamburger--collapse" type="button">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+    <nav class="nav-links">
+        <a href="login.php" class="button">Entrar</a>
+    </nav>
+</header>
     <main>
-        <section id="login">
-            <h1>Login</h1>
-            <form method="post">
-                <div class="form-group">
-                    <label for="email">E-mail:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="senha">Senha:</label>
-                    <input type="password" id="senha" name="senha" required>
-                </div>
-                <div class="button-group">
-                    <button type="submit">Entrar</button>
-                </div>
-            </form>
-            <div class="register-link">
-                <p>Esqueceu sua senha? <a href="solicitar_recuperacao.php">Redefinir aqui</a></p>
-                <p>Não tem uma conta? <a href="registrar.php">Registre-se aqui</a></p>
-            </div>
-        </section>
+        <ul>
+            <?php while ($row = $noticias->fetch(PDO::FETCH_ASSOC)): ?>
+                <li>
+                    <h2><?php echo $row['titulo']; ?></h2>
+                    <p><?php echo $row['noticia']; ?></p>
+                </li>
+            <?php endwhile; ?>
+        </ul>
     </main>
 </body>
+<footer class="site-footer">
+    <div class="container">
+        <p>&copy; 2024 noticias.com Todos os direitos reservados.</p>
+    </div>
+</footer>
 
 </html>

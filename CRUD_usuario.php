@@ -1,7 +1,7 @@
 <?php
 
 include_once './config/config.php';
-include_once './classes/Usuario.php';
+include_once './classes/usuario.php';
 
 $usuario = new Usuario($db);
 

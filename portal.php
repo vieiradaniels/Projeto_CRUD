@@ -95,7 +95,7 @@ $noticias = $noticia->ler();
     </form>
 
     <!-- Lista de notícias existentes -->
-    <ul>
+        <ul>
         <?php while ($row = $noticias->fetch(PDO::FETCH_ASSOC)): ?>
             <li>
                 <h2><?php echo $row['titulo']; ?></h2>
@@ -106,7 +106,7 @@ $noticias = $noticia->ler();
                 </div>
             </li>
         <?php endwhile; ?>
-    </ul>
+    </ul> 
 </main>
 <script>
     document.addEventListener('DOMContentLoaded', function() {

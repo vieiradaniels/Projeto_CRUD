@@ -59,7 +59,7 @@ function saudacao()
             <a href="logout.php" class="button">Logout</a>
         </nav>
     </header>
-    <?php require './filtro_usuario.php'?>
+    <?php require './CRUD_usuario.php'?>
     <main class="gerenciar-main">
         <div class="table-responsive">
             <table class="user-table">
