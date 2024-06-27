@@ -62,12 +62,12 @@ class Noticia
     }    
 
     // Obtém uma notícia pelo seu ID
-    public function lerPorId($idnot)
+    public function lerPorId($idusu)
     {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE idnot = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([$idnot]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $query = "SELECT * FROM " . $this->table_name . " WHERE idusu = ?";
+        $stmt = $this->conn->prepare($query);       
+        $stmt->execute([$idusu]);
+        return $stmt;
     }
 }
 

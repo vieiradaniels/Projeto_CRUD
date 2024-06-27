@@ -16,7 +16,7 @@ $dados = $usuario->ler($search, $order_by);
 
 <form method="GET" class="search-form">
     <div class="form-group">
-        <input type="text" name="search" placeholder="Pesquisar " value="<?php echo htmlspecialchars($search); ?>" class="search-input">
+        <input type="text" name="search" placeholder="Pesquisar nome ou e-mail" value="<?php echo htmlspecialchars($search); ?>" class="search-input">
     </div>
     <div class="form-group">
         <label class="search-label">
