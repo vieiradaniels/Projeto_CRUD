@@ -1,7 +1,7 @@
 <?php
 
 include_once './config/config.php';
-include_once './classes/Noticia.php';
+include_once './classes/noticias.php';
 
 $noticia = new Noticia($db);
 

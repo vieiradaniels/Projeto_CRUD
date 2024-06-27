@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+date_default_timezone_set('America/Sao_Paulo');
 include_once './config/config.php';
 include_once './classes/usuario.php';
 
@@ -55,8 +56,8 @@ function saudacao()
             </span>
         </button>
         <nav class="nav-links">
-            <a href="registrar.php" class="button">Adicionar Usuário</a>
-            <a href="logout.php" class="button">Logout</a>
+            <a href="portal.php" class="button">Voltar</a>
+            <a href="logout.php" class="button">Sair</a>
         </nav>
     </header>
     <?php require './CRUD_usuario.php'?>
