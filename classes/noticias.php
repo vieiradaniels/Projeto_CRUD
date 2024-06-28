@@ -11,29 +11,32 @@ class Noticia
     }
 
     // Cria uma nova notícia
-    public function criar($idusu, $data, $titulo, $noticia)
-    {
-        $query = "INSERT INTO " . $this->table_name . " (idusu, data, titulo, noticia) VALUES (?, ?, ?, ?)";
+    public function criar($idusu, $data, $titulo, $conteudo) {
+        $query = "INSERT INTO noticias (idusu, data, titulo, noticia) VALUES (:idusu, :data, :titulo, :conteudo)";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([$idusu, $data, $titulo, $noticia]);
-        return $stmt;
+        $stmt->bindParam(':idusu', $idusu);
+        $stmt->bindParam(':data', $data);
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':conteudo', $conteudo);
+        $stmt->execute();
     }
 
     // Atualiza uma notícia existente
-    public function atualizar($idnot, $titulo, $noticia)
-    {
-        $query = "UPDATE " . $this->table_name . " SET titulo = ?, noticia = ? WHERE idnot = ?";
+    public function atualizar($idnot, $titulo, $conteudo) {
+        $query = "UPDATE noticias SET titulo = :titulo, noticia = :conteudo WHERE idnot = :idnot";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([$titulo, $noticia, $idnot]);
+        $stmt->bindParam(':idnot', $idnot);
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':conteudo', $conteudo);
+        $stmt->execute();
     }
 
     // Deleta uma notícia pelo seu ID
-    public function deletar($idnot)
-    {
-        $query = "DELETE FROM " . $this->table_name . " WHERE idnot = ?";
+    public function deletar($idnot) {
+        $query = "DELETE FROM noticias WHERE idnot = :idnot";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([$idnot]);
-        return $stmt;
+        $stmt->bindParam(':idnot', $idnot);
+        $stmt->execute();
     }
 
     // Obtém todas as notícias
@@ -62,12 +65,37 @@ class Noticia
     }    
 
     // Obtém uma notícia pelo seu ID
-    public function lerPorId($idusu)
-    {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE idusu = ?";
-        $stmt = $this->conn->prepare($query);       
-        $stmt->execute([$idusu]);
+    public function lerPorId($idusu) {
+        $query = "SELECT * FROM noticias WHERE idusu = :idusu";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':idusu', $idusu);
+        $stmt->execute();
         return $stmt;
+    }
+
+    public function lerPorIdNot($idnot) {
+        $query = "SELECT * FROM noticias WHERE idnot = :idnot";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':idnot', $idnot);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function lerPaginado($limit, $offset) {
+        $query = "SELECT * FROM noticias LIMIT :limit OFFSET :offset";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    public function contarNoticias() {
+        $query = "SELECT COUNT(*) as total FROM noticias";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['total'];
     }
 }
 

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once './config/config.php';
 ?>
 
@@ -25,10 +26,10 @@ include_once './config/config.php';
         <a href="gerenciar_noticia.php" class="button">Gerenciar Notícias</a>
     </div>
 </main>
+</body>
 <footer class="site-footer">
     <div class="container">
         <p>&copy; 2024 Portal de Gerenciamento. Todos os direitos reservados.</p>
     </div>
 </footer>
-</body>
 </html>
