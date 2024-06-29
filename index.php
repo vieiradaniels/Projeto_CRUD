@@ -50,12 +50,11 @@ $total_pages = ceil($total_items / $items_per_page);
             <a href="?page=<?php echo $page; ?>" <?php if ($page == $current_page) echo 'class="active"'; ?>><?php echo $page; ?></a>
         <?php endfor; ?>
     </nav>
-</main>
+</main> 
+</body>
 <footer class="site-footer">
     <div class="container">
         <p>&copy; 2024 noticias.com Todos os direitos reservados.</p>
     </div>
 </footer>
-</body>
 </html>
-

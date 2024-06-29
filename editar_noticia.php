@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Notícia</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dist/hamburgers.css">
 </head>
 <body>
 <header class="navbar">
@@ -40,20 +41,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="logout.php" class="button">Sair</a>
     </nav>
 </header>
-<main>
-    <form method="post">
+<main class="portal-main">
+    <form method="post" action="editar_noticia.php">
         <input type="hidden" name="id" value="<?php echo isset($noticia_atual['idnot']) ? $noticia_atual['idnot'] : ''; ?>">
         
         <div class="form-group">
-            <input type="text" name="titulo" placeholder="Título" value="<?php echo isset($noticia_atual['titulo']) ? $noticia_atual['titulo'] : ''; ?>" required>
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo" placeholder="Título" value="<?php echo isset($noticia_atual['titulo']) ? $noticia_atual['titulo'] : ''; ?>" required>
         </div>
         
         <div class="form-group">
-            <textarea name="conteudo" rows="6" placeholder="Conteúdo" required><?php echo isset($noticia_atual['noticia']) ? $noticia_atual['noticia'] : ''; ?></textarea>
+            <label for="conteudo">Conteúdo:</label>
+            <textarea id="conteudo" name="conteudo" rows="6" placeholder="Conteúdo" required><?php echo isset($noticia_atual['noticia']) ? $noticia_atual['noticia'] : ''; ?></textarea>
         </div>
         
         <div class="button-group">
-            <button type="submit" name="atualizar">Atualizar</button>
+            <button type="submit" class="button">Atualizar</button>
         </div>
     </form>
 </main>
