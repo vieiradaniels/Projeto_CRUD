@@ -22,8 +22,13 @@ if (isset($_GET['deletar'])) {
 //Obter dados do usuário logado
 $dados_usuario = $usuario->lerPorId($_SESSION['usuario_id']);
 $nome_usuario = $dados_usuario['nome'];
+
+// Obter parâmetros de pesquisa e ordenação
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$order_by = isset($_GET['order_by']) ? $_GET['order_by'] : '';
+
 //Obter dados dos usuários
-$dados = $usuario->ler();
+$dados = $usuario->ler($search, $order_by);
 //Função para determinar a saudação
 function saudacao()
 {

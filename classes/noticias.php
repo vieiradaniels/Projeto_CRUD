@@ -39,30 +39,33 @@ class Noticia
         $stmt->execute();
     }
 
-    // Obtém todas as notícias
-    public function ler($search = '', $order_by = '') {
-        $query = "SELECT noticias.*, usuarios.nome AS nome_usuario FROM noticias 
-                  JOIN usuarios ON noticias.idusu = usuarios.id";
-        $conditions = [];
-        $params = [];
-        if ($search) {
-            $conditions[] = "(noticias.titulo LIKE :search OR noticias.noticia LIKE :search OR usuarios.nome LIKE :search OR usuarios.email LIKE :search)";
-            $params[':search'] = '%' . $search . '%';
-        }
-        if ($order_by === 'titulo') {
-            $query .= " ORDER BY noticias.titulo";
-        } elseif ($order_by === 'data') {
-            $query .= " ORDER BY noticias.data";
-        } elseif ($order_by === 'nome_usuario') {
-            $query .= " ORDER BY usuarios.nome";
-        }
-        if (count($conditions) > 0) {
-            $query .= " WHERE " . implode(' AND ', $conditions);
-        }
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute($params);
-        return $stmt;
-    }    
+    public function ler($search = '', $order_by = '')
+{
+    $query = "SELECT noticias.*, usuarios.nome AS nome_usuario FROM noticias 
+              JOIN usuarios ON noticias.idusu = usuarios.id";
+    $conditions = [];
+    $params = [];
+
+    if ($search) {
+        $conditions[] = "(noticias.titulo LIKE :search OR noticias.data LIKE :search)";
+        $params[':search'] = '%' . $search . '%';
+    }
+
+    if (count($conditions) > 0) {
+        $query .= " WHERE " . implode(' OR ', $conditions);
+    }
+
+    if ($order_by === 'titulo') {
+        $query .= " ORDER BY noticias.titulo";
+    } elseif ($order_by === 'data') {
+        $query .= " ORDER BY noticias.data";
+    }
+
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute($params);
+
+    return $stmt;
+}
 
     // Obtém uma notícia pelo seu ID
     public function lerPorId($idusu) {
