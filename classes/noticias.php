@@ -62,19 +62,51 @@ class Noticia
     }
 
     $stmt = $this->conn->prepare($query);
+    
+    if ($search) {
+        $search_param = '%' . $search . '%';
+        $stmt->bindParam(':search', $search_param);
+    }
+
     $stmt->execute($params);
 
     return $stmt;
 }
 
     // Obtém uma notícia pelo seu ID
-    public function lerPorId($idusu) {
-        $query = "SELECT * FROM noticias WHERE idusu = :idusu";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':idusu', $idusu);
-        $stmt->execute();
-        return $stmt;
+    // Obtém notícias pelo ID do usuário com opções de pesquisa e ordenação
+public function lerPorId($idusu, $search = '', $order_by = '')
+{
+    $query = "SELECT * FROM noticias WHERE idusu = :idusu";
+
+    // Condições de pesquisa
+    $conditions = [];
+    $params = [':idusu' => $idusu];
+
+    if ($search) {
+        $conditions[] = "(titulo LIKE :search OR DATE(data) LIKE :search)";
+        $params[':search'] = '%' . $search . '%';
     }
+
+    if (count($conditions) > 0) {
+        $query .= " AND " . implode(' OR ', $conditions);
+    }
+
+    // Ordenação por título em ordem alfabética
+    if ($order_by === 'titulo') {
+        $query .= " ORDER BY titulo ASC"; // ASC para ordem crescente (A-Z)
+    } elseif ($order_by === 'data') {
+        $query .= " ORDER BY data DESC"; // DESC para ordem decrescente (mais recente primeiro)
+    } else {
+        // Por padrão, podemos ordenar por ID, se necessário
+        $query .= " ORDER BY idnot DESC"; // Ordena por ID decrescente por padrão
+    }
+
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute($params);
+    return $stmt;
+}
+
 
     public function lerPorIdNot($idnot) {
         $query = "SELECT * FROM noticias WHERE idnot = :idnot";
