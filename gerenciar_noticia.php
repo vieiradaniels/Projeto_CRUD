@@ -35,8 +35,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit();
 }
 
+// Obter parâmetros de pesquisa e filtros
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$order_by = isset($_GET['order_by']) ? $_GET['order_by'] : '';
+
 // Ler todas as notícias
 $noticias = $noticia->lerPorId($_SESSION['usuario_id']);
+
+// Verificar se o usuário já postou notícias
+$usuarioPossuiNoticias = $noticias->rowCount() > 0;
+
+// Obter o nome do usuário para a saudação
+$usuarioNome = isset($_SESSION['usuario_nome']) ? $_SESSION['usuario_nome'] : 'Usuário';
 ?>
 
 <!DOCTYPE html>
@@ -60,6 +70,14 @@ $noticias = $noticia->lerPorId($_SESSION['usuario_id']);
     </header>
     <?php require './CRUD_noticia.php' ?>
     <main>
+        <!-- Saudações Personalizadas -->
+        <section>
+            <?php if ($usuarioPossuiNoticias): ?>
+                <p>Bem-vindo de volta, <?php echo htmlspecialchars($usuarioNome); ?>! Estamos felizes em vê-lo novamente.</p>
+            <?php else: ?>
+                <p>Olá, <?php echo htmlspecialchars($usuarioNome); ?>! Poste sua primeira notícia e compartilhe suas ideias.</p>
+            <?php endif; ?>
+        </section>
         <!-- Formulário de Criação de Notícia -->
         <section>
             <h2>Criar Nova Notícia</h2>
@@ -79,10 +97,10 @@ $noticias = $noticia->lerPorId($_SESSION['usuario_id']);
         </section>
         <!-- Lista de Notícias -->
         <ul>
-            <?php while ($row = $dados->fetch(PDO::FETCH_ASSOC)): ?>
+            <?php while ($row = $noticias->fetch(PDO::FETCH_ASSOC)): ?>
                 <li>
-                    <h2><?php echo $row['titulo']; ?></h2>
-                    <p><?php echo $row['noticia']; ?></p>
+                    <h2><?php echo htmlspecialchars($row['titulo']); ?></h2>
+                    <p><?php echo htmlspecialchars($row['noticia']); ?></p>
                     <div class="actions">
                         <a class="edit" href="editar_noticia.php?id=<?php echo $row['idnot']; ?>">Editar</a>
                         <a class="delete" href="gerenciar_noticia.php?deletar=<?php echo $row['idnot']; ?>"
