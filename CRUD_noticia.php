@@ -20,13 +20,13 @@ $dados = $noticia->ler($search, $order_by);
         <input type="text" name="search" placeholder="Pesquisar por título ou data" value="<?php echo htmlspecialchars($search); ?>" class="search-input">
     </div>
     <div class="form-group">
-        <label class="search-label">
+        <label class="radio-label">
             <input type="radio" name="order_by" value="" <?php if ($order_by == '') echo 'checked'; ?>> Normal
         </label>
-        <label class="search-label">
+        <label class="radio-label">
             <input type="radio" name="order_by" value="titulo" <?php if ($order_by == 'titulo') echo 'checked'; ?>> Ordem Alfabética
         </label>
-        <label class="search-label">
+        <label class="radio-label">
             <input type="radio" name="order_by" value="data" <?php if ($order_by == 'data') echo 'checked'; ?>> Data
         </label>
     </div>
@@ -34,3 +34,4 @@ $dados = $noticia->ler($search, $order_by);
         <button type="submit" class="search-button">Pesquisar</button>
     </div>
 </form>
+

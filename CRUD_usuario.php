@@ -19,13 +19,13 @@ $dados = $usuario->ler($search, $order_by);
         <input type="text" name="search" placeholder="Pesquisar nome ou e-mail" value="<?php echo htmlspecialchars($search); ?>" class="search-input">
     </div>
     <div class="form-group">
-        <label class="search-label">
+        <label class="radio-label">
             <input type="radio" name="order_by" value="" <?php if ($order_by == '') echo 'checked'; ?>> Normal
         </label>
-        <label class="search-label">
+        <label class="radio-label">
             <input type="radio" name="order_by" value="nome" <?php if ($order_by == 'nome') echo 'checked'; ?>> Ordem Alfabética
         </label>
-        <label class="search-label">
+        <label class="radio-label">
             <input type="radio" name="order_by" value="sexo" <?php if ($order_by == 'sexo') echo 'checked'; ?>> Sexo
         </label>
     </div>
