@@ -395,7 +395,6 @@ ul li .actions a.delete:hover {
     background-color: #c82333;
 }
 
-/* Estilo para o formulário de pesquisa */
 .search-form {
     max-width: 600px;
     margin: 20px auto;
@@ -409,10 +408,11 @@ ul li .actions a.delete:hover {
     margin-bottom: 15px;
 }
 
-.search-form .form-group label.search-label {
+.search-form .form-group .radio-label {
     display: inline-block;
     margin-right: 20px;
-    color: #555;
+    vertical-align: middle;
+    color: black;
 }
 
 .search-form .form-group .search-input {
@@ -429,16 +429,11 @@ ul li .actions a.delete:hover {
     margin-bottom: 5px;
 }
 
-.search-form .form-group input[type="radio"] {
-    margin-right: 5px;
-    vertical-align: middle;
-}
-
 .search-form .button-group {
     text-align: center;
 }
 
-.search-form .button-group button.search-button {
+.search-form .button-group .search-button {
     width: 100%;
     padding: 12px 20px;
     background-color: #007bff;
@@ -449,9 +444,11 @@ ul li .actions a.delete:hover {
     transition: background-color 0.3s;
 }
 
-.search-form .button-group button.search-button:hover {
+.search-form .button-group .search-button:hover {
     background-color: #0056b3;
 }
+
+
 
 /* Estilo para o footer */
 .site-footer {
