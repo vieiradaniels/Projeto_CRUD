@@ -15,7 +15,7 @@ $usuario = new Usuario($db);
 //Processar exclusão de usuário
 if (isset($_GET['deletar'])) {
     $id_usuario = $_GET['deletar'];
-    $usuario->deletar($id);
+    $usuario->deletar($id_usuario);
     header('Location: portal.php');
     exit;
 }
@@ -65,7 +65,7 @@ function saudacao()
             <a href="logout.php" class="button">Sair</a>
         </nav>
     </header>
-    <?php require './CRUD_usuario.php'?>
+    
     <main class="gerenciar-main">
         <div class="table-responsive">
             <table class="user-table">
@@ -80,19 +80,17 @@ function saudacao()
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = $dados->fetch(PDO::FETCH_ASSOC)): ?>
-                        <tr>
-                            <td><?php echo $row['id']; ?></td>
-                            <td><?php echo $row['nome']; ?></td>
-                            <td><?php echo ($row['sexo'] === 'M') ? 'Masculino' : 'Feminino'; ?></td>
-                            <td><?php echo $row['fone']; ?></td>
-                            <td><?php echo $row['email']; ?></td>
-                            <td>
-                                <a href="editar.php?id=<?php echo $row['id']; ?>" class="action-button">Editar</a>
-                                <a href="deletar.php?id=<?php echo $row['id']; ?>" class="action-button delete" onclick="return confirm('Tem certeza que deseja deletar esta notícia?')">Deletar</a>
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
+                    <tr>
+                        <td><?php echo $dados_usuario['id']; ?></td>
+                        <td><?php echo $dados_usuario['nome']; ?></td>
+                        <td><?php echo ($dados_usuario['sexo'] === 'M') ? 'Masculino' : 'Feminino'; ?></td>
+                        <td><?php echo $dados_usuario['fone']; ?></td>
+                        <td><?php echo $dados_usuario['email']; ?></td>
+                        <td>
+                            <a href="editar.php?id=<?php echo $dados_usuario['id']; ?>" class="action-button">Editar</a>
+                            <a href="?deletar=<?php echo $dados_usuario['id']; ?>" class="action-button delete" onclick="return confirm('Tem certeza que deseja deletar este usuário?')">Deletar</a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
